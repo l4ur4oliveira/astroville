@@ -76,6 +76,10 @@ describe('AstroVille game flow', () => {
     expect(screen.getByRole('button', { name: /confirmar escolha/i })).toHaveFocus();
     await user.keyboard('{Enter}');
     expect(screen.getByRole('heading', { name: /sucesso/i })).toBeInTheDocument();
+    await user.tab();
+    expect(screen.getByRole('button', { name: /avançar/i })).toHaveFocus();
+    await user.keyboard('{Enter}');
+    expect(screen.getByRole('heading', { name: /nascimento dos oceanos/i })).toBeInTheDocument();
   });
 
   it('starts at the home screen when a new page instance is loaded', () => {
@@ -110,5 +114,27 @@ describe('AstroVille game flow', () => {
     expect(screen.getByRole('heading', { name: /humanidade prosperou/i })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /jogar novamente/i }));
     expect(screen.getByRole('heading', { name: /astro ville/i })).toBeInTheDocument();
+  });
+
+  it('completes the journey when the sixth phase ends in partial success', () => {
+    render(<Home />);
+    const pairs = [
+      ['Touro', 'Capricórnio'], ['Câncer', 'Peixes'], ['Virgem', 'Touro'],
+      ['Gêmeos', 'Libra'], ['Capricórnio', 'Aquário'], ['Sagitário', 'Leão'],
+    ];
+    fireEvent.click(screen.getByRole('button', { name: /começar jornada/i }));
+    fireEvent.click(screen.getByRole('button', { name: /escolher signos/i }));
+
+    for (let index = 0; index < pairs.length; index += 1) {
+      for (const sign of pairs[index]) fireEvent.click(screen.getByRole('button', { name: new RegExp(sign, 'i') }));
+      fireEvent.click(screen.getByRole('button', { name: /confirmar escolha/i }));
+      const outcome = screen.getByRole('region', { name: /resultado da fase/i });
+      if (index === pairs.length - 1) {
+        expect(within(outcome).getByRole('heading', { name: /instável/i })).toBeInTheDocument();
+      }
+      fireEvent.click(within(outcome).getByRole('button', { name: /avançar|continuar/i }));
+    }
+
+    expect(screen.getByRole('heading', { name: /humanidade prosperou/i })).toBeInTheDocument();
   });
 });

@@ -41,6 +41,20 @@ describe('journey rules', () => {
     expect(journey.completedPhases).toEqual([0, 1, 2, 3, 4, 5]);
   });
 
+  it('recognizes the approved correct pair in the final phase', () => {
+    let journey = createJourney();
+    const firstFivePairs = [
+      ['Touro', 'Capricórnio'], ['Câncer', 'Peixes'], ['Virgem', 'Touro'],
+      ['Gêmeos', 'Libra'], ['Capricórnio', 'Aquário'],
+    ];
+    for (const pair of firstFivePairs) journey = resolveChoice(journey, pair).journey;
+
+    const finalOutcome = resolveChoice(journey, ['Aquário', 'Sagitário']);
+
+    expect(finalOutcome.result).toBe('success');
+    expect(finalOutcome.journey.status).toBe('complete');
+  });
+
   it('starts a fresh in-memory journey when restarted', () => {
     const journey = resolveChoice(createJourney(), ['Touro', 'Capricórnio']).journey;
 

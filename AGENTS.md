@@ -2,7 +2,7 @@
 
 ### Issue tracker
 
-Issues and specs are markdown files under `.scratch/<feature>/`. See `docs/agents/issue-tracker.md`.
+GitHub Issues is the single source of truth for specs and implementation tickets; use `gh` for all tracker operations. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

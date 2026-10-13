@@ -1,30 +1,35 @@
-# Issue tracker: Local Markdown
+# Issue tracker: GitHub Issues
 
-Issues and specs for this repo live as markdown files in `.scratch/`.
+GitHub Issues is the single source of truth for specifications, implementation tickets, status, discussion, and dependencies. Use the `gh` CLI from this repository. Do not create parallel issue records under `.scratch/`.
 
 ## Conventions
 
-- One feature per directory: `.scratch/<feature-slug>/`
-- The spec is `.scratch/<feature-slug>/spec.md`
-- Implementation issues are one file per ticket at `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01`, never a single combined tickets file
-- Triage state is recorded as a `Status:` line near the top of each issue file (see `triage-labels.md` for the role strings)
-- Comments and conversation history append to the bottom of the file under a `## Comments` heading
+- **Specification**: create a parent issue containing the spec. Use the `ready-for-agent` triage label when it is ready for implementation.
+- **Implementation tickets**: create each ticket as a GitHub sub-issue of its specification issue. Use one issue per vertical slice and apply the appropriate triage label.
+- **Dependencies**: use GitHub's native issue dependencies (`gh issue create --blocked-by <issue-number>`). Create issues in dependency order so blocker numbers are available.
+- **Status**: use GitHub labels mapped in `triage-labels.md`; do not maintain a competing `Status:` field in local markdown.
+- **Comments and history**: keep them in the relevant GitHub issue.
+- **PRs as a triage surface**: no. _(Change this only if this repo decides to triage external PRs as requests.)_
 
-## When a skill says "publish to the issue tracker"
+## Common operations
 
-Create a new file under `.scratch/<feature-slug>/` (creating the directory if needed).
+- **Create an issue**: `gh issue create --title "..." --body "..."`.
+- **Create a sub-issue**: `gh issue create --parent <parent-number> --title "..." --body "..."`.
+- **Create a blocked issue**: add `--blocked-by <issue-number>`.
+- **Read an issue**: `gh issue view <number> --json number,title,body,labels,comments,blockedBy,blocking`.
+- **List issues**: `gh issue list --state open --json number,title,body,labels`.
+- **Comment**: `gh issue comment <number> --body "..."`.
+- **Apply or remove labels**: `gh issue edit <number> --add-label "..."` / `--remove-label "..."`.
+- **Close**: `gh issue close <number> --comment "..."`.
 
-## When a skill says "fetch the relevant ticket"
-
-Read the file at the referenced path. The user will normally pass the path or the issue number directly.
+GitHub's shared issue/PR number space means a bare `#42` can refer to either; use `gh issue view 42` or `gh pr view 42` to resolve it.
 
 ## Wayfinding operations
 
-Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
+Used by `/wayfinder`:
 
-- **Map**: `.scratch/<effort>/map.md` (the Notes / Decisions-so-far / Fog body).
-- **Child ticket**: `.scratch/<effort>/issues/NN-<slug>.md`, numbered from `01`, with the question in the body. A `Type:` line records the ticket type (`research`/`prototype`/`grilling`/`task`); a `Status:` line records `claimed`/`resolved`.
-- **Blocking**: a `Blocked by: NN, NN` line near the top. A ticket is unblocked when every file it lists is `resolved`.
-- **Frontier**: scan `.scratch/<effort>/issues/` for files that are open, unblocked, and unclaimed; first by number wins.
-- **Claim**: set `Status: claimed` and save before any work.
-- **Resolve**: append the answer under an `## Answer` heading, set `Status: resolved`, then append a context pointer (gist + link) to the map's Decisions-so-far in `map.md`.
+- **Map**: one GitHub issue labelled `wayfinder:map` containing Notes, Decisions-so-far, and Fog.
+- **Child ticket**: a GitHub sub-issue linked to the map; use a `wayfinder:<type>` label (`research`, `prototype`, `grilling`, or `task`).
+- **Blocking**: native GitHub issue dependencies. A ticket is unblocked when every blocker is closed.
+- **Claim**: assign the issue to the person driving it.
+- **Resolve**: add the answer as an issue comment, close the issue, then update the map's Decisions-so-far with a context pointer.

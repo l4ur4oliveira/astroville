@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" fill="none">
+  <defs>
+    <radialGradient cx="45%" cy="40%" id="wp2-turbulent" r="55%">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="60%" stop-color="#115E59"/>
+      <stop offset="90%" stop-color="#134E4A"/>
+      <stop offset="100%" stop-color="#042F2E"/>
+    </radialGradient>
+  </defs>
+  <!-- Distorted atmospheric ring -->
+  <circle cx="100" cy="100" r="92" stroke="#FBBF24" stroke-dasharray="3 5" stroke-opacity="0.5" stroke-width="1.5"/>
+  <circle cx="100" cy="100" fill="url(#wp2-turbulent)" r="76" stroke="#14B8A6" stroke-width="2"/>
+  <!-- Acidic dark ocean swaths -->
+  <path d="M42 75C55 55 90 62 105 78C118 92 142 85 158 98C170 108 162 135 140 142C118 148 95 130 75 145C55 158 40 135 38 115C36 95 40 85 42 75Z" fill="#042F2E" opacity="0.85"/>
+  <!-- Turbulent cyclonic vortices -->
+  <path d="M60 88C85 70 120 72 145 92C155 100 135 118 108 112C85 106 72 120 54 116" stroke="#2DD4BF" stroke-dasharray="5 3" stroke-linecap="round" stroke-width="3"/>
+  <path d="M48 132C78 120 122 140 152 124" stroke="#FCD34D" stroke-dasharray="4 2" stroke-linecap="round" stroke-width="2.5"/>
+  <ellipse cx="120" cy="95" rx="14" ry="7" stroke="#FBBF24" stroke-width="1.8" transform="rotate(20 120 95)"/>
+  <circle cx="120" cy="95" fill="#FBBF24" r="2.5"/>
+  <!-- Acid rain vapor spots -->
+  <circle cx="165" cy="70" fill="#FCD34D" r="3"/>
+  <circle cx="35" cy="140" fill="#2DD4BF" r="2.5"/>
+</svg>

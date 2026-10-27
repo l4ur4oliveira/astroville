@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" fill="none">
+  <defs>
+    <radialGradient cx="45%" cy="40%" id="p3-deepwater" r="55%">
+      <stop offset="0%" stop-color="#0369A1"/>
+      <stop offset="85%" stop-color="#07273F"/>
+      <stop offset="100%" stop-color="#02121E"/>
+    </radialGradient>
+    <linearGradient id="p3-canopy" x1="0" x2="200" y1="0" y2="200">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="50%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#064E3B"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" stroke="#6EE7B7" stroke-dasharray="3 3" stroke-opacity="0.35" stroke-width="1.5"/>
+  <circle cx="100" cy="100" fill="url(#p3-deepwater)" r="76" stroke="#10B981" stroke-width="2"/>
+  <path d="M42 90C45 68 70 54 94 65C104 70 108 85 98 100C88 115 62 120 48 112C40 106 38 98 42 90Z" fill="url(#p3-canopy)"/>
+  <path d="M112 75C128 58 155 64 162 82C168 100 152 118 136 116C122 114 110 92 112 75Z" fill="url(#p3-canopy)"/>
+  <path d="M68 128C84 116 115 120 126 136C134 150 120 168 98 166C78 164 62 144 68 128Z" fill="url(#p3-canopy)"/>
+  <path d="M38 108C70 94 130 92 162 108" opacity="0.65" stroke="#A7F3D0" stroke-linecap="round" stroke-width="3"/>
+  <circle cx="92" cy="80" fill="#6EE7B7" r="3"/>
+  <circle cx="140" cy="88" fill="#6EE7B7" r="2.5"/>
+  <circle cx="100" cy="144" fill="#A7F3D0" r="3"/>
+  <circle cx="26" cy="116" fill="#34D399" r="3.5"/>
+  <circle cx="174" cy="76" fill="#6EE7B7" r="2.5"/>
+</svg>

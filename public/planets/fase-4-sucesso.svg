@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" fill="none">
+  <defs>
+    <radialGradient cx="45%" cy="40%" id="p4-nightbase" r="55%">
+      <stop offset="0%" stop-color="#1E1B4B"/>
+      <stop offset="70%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
+    <linearGradient id="p4-glowlines" x1="0" x2="200" y1="0" y2="200">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="50%" stop-color="#C084FC"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" stroke="#C084FC" stroke-dasharray="2 4" stroke-opacity="0.4" stroke-width="1.5"/>
+  <circle cx="100" cy="100" fill="url(#p4-nightbase)" r="76" stroke="#8B5CF6" stroke-width="2"/>
+  <path d="M46 76C55 58 84 56 94 72C102 84 92 108 76 112C60 115 42 96 46 76Z" fill="#312E81" opacity="0.7"/>
+  <path d="M116 70C132 58 158 64 160 84C162 102 144 116 128 112C116 108 110 84 116 70Z" fill="#312E81" opacity="0.7"/>
+  <path d="M72 124C88 116 118 122 122 138C126 154 106 166 88 162C76 158 64 138 72 124Z" fill="#312E81" opacity="0.7"/>
+  <line stroke="#FDE68A" stroke-dasharray="1 1" stroke-width="1.2" x1="68" x2="88" y1="78" y2="92"/>
+  <line opacity="0.8" stroke="#C084FC" stroke-width="1.2" x1="88" x2="132" y1="92" y2="82"/>
+  <line stroke="#FDE68A" stroke-width="1" x1="132" x2="148" y1="82" y2="98"/>
+  <line stroke="#C084FC" stroke-dasharray="2 2" stroke-width="1.2" x1="88" x2="98" y1="92" y2="136"/>
+  <line stroke="#FDE68A" stroke-width="1" x1="98" x2="114" y1="136" y2="144"/>
+  <circle cx="68" cy="78" fill="#FDE68A" r="3.5"/>
+  <circle cx="88" cy="92" fill="#FFFFFF" r="4.5"/>
+  <circle cx="132" cy="82" fill="#FDE68A" r="4"/>
+  <circle cx="148" cy="98" fill="#FBBF24" r="3"/>
+  <circle cx="98" cy="136" fill="#FFFFFF" r="4"/>
+  <circle cx="114" cy="144" fill="#FDE68A" r="3"/>
+  <ellipse cx="100" cy="100" rx="84" ry="24" stroke="url(#p4-glowlines)" stroke-dasharray="4 4" stroke-width="1.5" transform="rotate(-15 100 100)"/>
+</svg>

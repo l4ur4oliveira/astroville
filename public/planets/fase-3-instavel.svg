@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" fill="none">
+  <defs>
+    <radialGradient cx="45%" cy="40%" id="wp3-base" r="55%">
+      <stop offset="0%" stop-color="#854D0E"/>
+      <stop offset="60%" stop-color="#713F12"/>
+      <stop offset="100%" stop-color="#1C1917"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" stroke="#CA8A04" stroke-dasharray="4 4" stroke-opacity="0.4" stroke-width="1.5"/>
+  <circle cx="100" cy="100" fill="url(#wp3-base)" r="76" stroke="#A16207" stroke-width="2"/>
+  <!-- Sickly overgrown moss & arid desert patches -->
+  <path d="M48 78C56 60 84 55 96 70C104 82 86 102 70 108C54 112 42 94 48 78Z" fill="#65A30D" opacity="0.8"/>
+  <path d="M110 65C130 52 160 62 164 85C168 104 140 114 122 110C110 106 102 85 110 65Z" fill="#4D7C0F" opacity="0.8"/>
+  <!-- Arid cracked rift across canopy -->
+  <path d="M70 120C88 110 118 116 130 134C136 148 114 165 92 160C78 156 65 135 70 120Z" fill="#D97706" opacity="0.75"/>
+  <!-- Toxic spore clouds -->
+  <path d="M40 98C70 85 130 85 160 102" opacity="0.8" stroke="#FBBF24" stroke-dasharray="2 3" stroke-linecap="round" stroke-width="3.5"/>
+  <circle cx="86" cy="90" fill="#A3E635" r="4"/>
+  <circle cx="140" cy="98" fill="#EAB308" r="3.5"/>
+  <circle cx="108" cy="140" fill="#F59E0B" r="3"/>
+  <!-- Spore particulates -->
+  <circle cx="28" cy="110" fill="#FBBF24" r="2.5"/>
+  <circle cx="172" cy="80" fill="#A3E635" r="2.5"/>
+</svg>

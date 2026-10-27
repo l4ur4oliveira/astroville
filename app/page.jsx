@@ -4,9 +4,15 @@ import { useEffect, useState } from 'react';
 import { createJourney, PHASES, resolveChoice, restartJourney, ZODIAC_SIGNS } from './game.js';
 
 const resultCopy = {
-  success: { title: 'SUCESSO', icon: '✓', message: 'A Terra encontrou sua fundação.', detail: 'O mundo prospera sob um céu em harmonia.', action: 'AVANÇAR' },
-  partial: { title: 'INSTÁVEL', icon: '≈', message: 'A humanidade sobreviveu.', detail: 'O equilíbrio ainda está se formando.', action: 'CONTINUAR' },
-  collapse: { title: 'COLAPSO', icon: '×', message: 'A combinação entrou em conflito.', detail: 'O mundo não prosperou. O cosmos oferece outra chance.', action: 'TENTAR NOVAMENTE' },
+  success: { title: 'SUCESSO', message: 'A Terra encontrou sua fundação.', detail: 'O mundo prospera sob um céu em harmonia.', action: 'AVANÇAR' },
+  partial: { title: 'INSTÁVEL', message: 'A humanidade sobreviveu.', detail: 'O equilíbrio ainda está se formando.', action: 'CONTINUAR' },
+  collapse: { title: 'COLAPSO', message: 'A combinação entrou em conflito.', detail: 'O mundo não prosperou. O cosmos oferece outra chance.', action: 'TENTAR NOVAMENTE' },
+};
+
+const resultIllustrations = {
+  success: (phaseNumber) => `/planets/fase-${phaseNumber}-sucesso.svg`,
+  partial: (phaseNumber) => `/planets/fase-${phaseNumber}-instavel.svg`,
+  collapse: () => '/planets/colapso.svg',
 };
 
 export default function Home() {
@@ -14,6 +20,7 @@ export default function Home() {
   const [screen, setScreen] = useState('home');
   const [selected, setSelected] = useState([]);
   const [outcome, setOutcome] = useState(null);
+  const [evaluatedPhaseIndex, setEvaluatedPhaseIndex] = useState(null);
   const [guideOpen, setGuideOpen] = useState(false);
   const phase = PHASES[journey.phaseIndex];
 
@@ -30,6 +37,7 @@ export default function Home() {
     setJourney(createJourney());
     setSelected([]);
     setOutcome(null);
+    setEvaluatedPhaseIndex(null);
     setScreen('intro');
   }
 
@@ -39,6 +47,7 @@ export default function Home() {
 
   function confirmChoice() {
     if (selected.length !== 2) return;
+    setEvaluatedPhaseIndex(journey.phaseIndex);
     const resolved = resolveChoice(journey, selected);
     setJourney(resolved.journey);
     setOutcome(resolved.result);
@@ -149,8 +158,8 @@ export default function Home() {
       </section>}
 
       {screen === 'result' && outcome && <section className={`result-screen panel result-${outcome}`} role="region" aria-label="Resultado da fase" aria-live="polite">
-        <div className="result-icon" aria-hidden="true">{resultCopy[outcome].icon}</div>
-        <p className="eyebrow">FASE {journey.phaseIndex + 1} · {phase.name}</p>
+        <img className="result-icon" src={resultIllustrations[outcome](evaluatedPhaseIndex + 1)} alt="" aria-hidden="true" />
+        <p className="eyebrow">FASE {evaluatedPhaseIndex + 1} · {PHASES[evaluatedPhaseIndex].name}</p>
         <h2>{resultCopy[outcome].title}</h2>
         <div className="result-pair">{selected.map((sign, index) => <span key={sign}>{index > 0 && <b>+</b>}{ZODIAC_SIGNS.find((item) => item.name === sign)?.symbol} <small>{sign}</small></span>)}</div>
         <p className="result-message">{resultCopy[outcome].message}</p>

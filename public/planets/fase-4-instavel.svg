@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" fill="none">
+  <defs>
+    <radialGradient cx="45%" cy="40%" id="wp4-night" r="55%">
+      <stop offset="0%" stop-color="#18181B"/>
+      <stop offset="70%" stop-color="#09090B"/>
+      <stop offset="100%" stop-color="#020203"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" stroke="#FBBF24" stroke-dasharray="2 3" stroke-opacity="0.4" stroke-width="1.5"/>
+  <circle cx="100" cy="100" fill="url(#wp4-night)" r="76" stroke="#F59E0B" stroke-width="1.8"/>
+  <!-- Broken city grid lines & short-circuits -->
+  <line stroke="#EF4444" stroke-dasharray="3 2" stroke-width="1.8" x1="65" x2="84" y1="78" y2="92"/>
+  <line stroke="#FBBF24" stroke-dasharray="1 3" stroke-width="1.2" x1="84" x2="110" y1="92" y2="86"/>
+  <line stroke="#EF4444" stroke-width="2" x1="130" x2="148" y1="84" y2="102"/>
+  <line stroke="#71717A" stroke-dasharray="2 4" stroke-width="1" x1="84" x2="94" y1="92" y2="135"/>
+  <line stroke="#F59E0B" stroke-dasharray="2 2" stroke-width="1.5" x1="94" x2="120" y1="135" y2="142"/>
+  <!-- Short-circuit sparks / failing node cities -->
+  <circle cx="65" cy="78" fill="#EF4444" r="4"/>
+  <circle cx="84" cy="92" fill="#FBBF24" r="5"/>
+  <circle cx="130" cy="84" fill="#71717A" r="3"/>
+  <circle cx="148" cy="102" fill="#EF4444" r="4.5"/>
+  <circle cx="94" cy="135" fill="#52525B" r="3"/>
+  <circle cx="120" cy="142" fill="#FBBF24" r="4"/>
+  <!-- Surging broken energy arc -->
+  <path d="M45 105L70 95L95 110L125 90L155 105" stroke="#EF4444" stroke-dasharray="4 2" stroke-width="1.5"/>
+  <polygon fill="#FBBF24" points="122,88 126,82 130,88 125,87"/>
+</svg>

@@ -64,7 +64,9 @@ for (const viewport of viewports) {
     await page.keyboard.press('Escape');
     await expect(guide).toBeHidden();
 
-    await page.getByRole('button', { name: /começar jornada/i }).click();
+    await page.keyboard.press('Shift+Tab');
+    await expect(start).toBeFocused();
+    await page.keyboard.press('Enter');
     await expect(page.getByRole('heading', { name: /sopa primordial/i })).toBeVisible();
   });
 }

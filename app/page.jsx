@@ -20,7 +20,7 @@ export default function Home() {
   const [screen, setScreen] = useState('home');
   const [selected, setSelected] = useState([]);
   const [outcome, setOutcome] = useState(null);
-  const [resultPhaseIndex, setResultPhaseIndex] = useState(null);
+  const [evaluatedPhaseIndex, setEvaluatedPhaseIndex] = useState(null);
   const [guideOpen, setGuideOpen] = useState(false);
   const phase = PHASES[journey.phaseIndex];
 
@@ -37,7 +37,7 @@ export default function Home() {
     setJourney(createJourney());
     setSelected([]);
     setOutcome(null);
-    setResultPhaseIndex(null);
+    setEvaluatedPhaseIndex(null);
     setScreen('intro');
   }
 
@@ -47,7 +47,7 @@ export default function Home() {
 
   function confirmChoice() {
     if (selected.length !== 2) return;
-    setResultPhaseIndex(journey.phaseIndex);
+    setEvaluatedPhaseIndex(journey.phaseIndex);
     const resolved = resolveChoice(journey, selected);
     setJourney(resolved.journey);
     setOutcome(resolved.result);
@@ -158,8 +158,8 @@ export default function Home() {
       </section>}
 
       {screen === 'result' && outcome && <section className={`result-screen panel result-${outcome}`} role="region" aria-label="Resultado da fase" aria-live="polite">
-        <img className="result-icon" src={resultIllustrations[outcome](resultPhaseIndex + 1)} alt="" aria-hidden="true" />
-        <p className="eyebrow">FASE {resultPhaseIndex + 1} · {PHASES[resultPhaseIndex].name}</p>
+        <img className="result-icon" src={resultIllustrations[outcome](evaluatedPhaseIndex + 1)} alt="" aria-hidden="true" />
+        <p className="eyebrow">FASE {evaluatedPhaseIndex + 1} · {PHASES[evaluatedPhaseIndex].name}</p>
         <h2>{resultCopy[outcome].title}</h2>
         <div className="result-pair">{selected.map((sign, index) => <span key={sign}>{index > 0 && <b>+</b>}{ZODIAC_SIGNS.find((item) => item.name === sign)?.symbol} <small>{sign}</small></span>)}</div>
         <p className="result-message">{resultCopy[outcome].message}</p>

@@ -67,6 +67,13 @@ describe('AstroVille game flow', () => {
     expect(within(result).getByRole('heading', { name: /colapso/i })).toBeInTheDocument();
     expect(result.querySelector('img')).toHaveAttribute('src', '/planets/colapso.svg');
     expect(screen.getByText('FASE 2 · Nascimento dos Oceanos')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /tentar novamente/i }));
+
+    expect(screen.getByRole('heading', { name: /nascimento dos oceanos/i })).toBeInTheDocument();
+    expect(screen.getByText('FASE 2 / 6')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /touro/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /confirmar escolha/i })).toBeDisabled();
   });
 
   it('allows a partial pair to advance to the next phase', () => {

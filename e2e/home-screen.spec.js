@@ -44,6 +44,13 @@ for (const viewport of viewports) {
     }));
     expect(dimensions.document).toBeLessThanOrEqual(dimensions.viewport);
 
+    await page.getByRole('button', { name: /como jogar/i }).click();
+    const guide = page.getByRole('dialog', { name: 'Como Jogar AstroVille' });
+    await expect(guide).toBeVisible();
+    await expect(guide.getByRole('listitem')).toHaveCount(4);
+    await page.keyboard.press('Escape');
+    await expect(guide).toBeHidden();
+
     await page.getByRole('button', { name: /começar jornada/i }).click();
     await expect(page.getByRole('heading', { name: /sopa primordial/i })).toBeVisible();
   });
@@ -90,6 +97,17 @@ test('guide remains within a short mobile viewport and its actions can be reache
   const bounds = await guide.boundingBox();
   expect(bounds.y).toBeGreaterThanOrEqual(0);
   expect(bounds.y + bounds.height).toBeLessThanOrEqual(400);
+
+  for (const title of [
+    'Observe a Era Planetária',
+    'Escolha 2 Signos do Zodíaco',
+    'Confirme e Testemunhe a Sinergia',
+    'Alcance o Horizonte Estelar',
+  ]) {
+    const step = guide.getByRole('heading', { name: title });
+    await step.scrollIntoViewIfNeeded();
+    await expect(step).toBeInViewport();
+  }
 
   const finish = guide.getByRole('button', { name: /entendido, iniciar/i });
   await finish.scrollIntoViewIfNeeded();

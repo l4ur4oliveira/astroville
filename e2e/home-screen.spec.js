@@ -56,6 +56,33 @@ test('home screen guide can be read and dismissed before starting a journey', as
   await page.keyboard.press('Escape');
   await expect(guide).toBeHidden();
 
+  await page.getByRole('button', { name: /como jogar/i }).click();
+  await page.getByRole('button', { name: /fechar como jogar/i }).click();
+  await expect(guide).toBeHidden();
+
+  await page.getByRole('button', { name: /como jogar/i }).click();
+  await page.getByRole('button', { name: /entendido, iniciar/i }).click();
+  await expect(guide).toBeHidden();
+
+  await page.getByRole('button', { name: /como jogar/i }).click();
+  await page.mouse.click(4, 4);
+  await expect(guide).toBeHidden();
+
   await page.getByRole('button', { name: /começar jornada/i }).click();
   await expect(page.getByRole('heading', { name: /sopa primordial/i })).toBeVisible();
+});
+
+test('guide remains within a short mobile viewport and its actions can be reached by scrolling', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 400 });
+  await page.goto('/');
+  await page.getByRole('button', { name: /como jogar/i }).click();
+
+  const guide = page.getByRole('dialog', { name: 'Como Jogar AstroVille' });
+  const bounds = await guide.boundingBox();
+  expect(bounds.y).toBeGreaterThanOrEqual(0);
+  expect(bounds.y + bounds.height).toBeLessThanOrEqual(400);
+
+  const finish = guide.getByRole('button', { name: /entendido, iniciar/i });
+  await finish.scrollIntoViewIfNeeded();
+  await expect(finish).toBeInViewport();
 });

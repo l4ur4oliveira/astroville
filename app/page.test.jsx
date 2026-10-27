@@ -94,7 +94,7 @@ describe('AstroVille game flow', () => {
     expect(screen.getByRole('button', { name: /começar jornada/i })).toBeInTheDocument();
   });
 
-  it('opens the guide and closes it with its close button, start button, Escape, or backdrop', async () => {
+  it('opens the guide and closes it with its close button, start button, or Escape', async () => {
     const user = userEvent.setup();
     render(<Home />);
 
@@ -110,10 +110,6 @@ describe('AstroVille game flow', () => {
 
     await user.click(screen.getByRole('button', { name: /como jogar/i }));
     await user.click(screen.getByRole('button', { name: /entendido, iniciar/i }));
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-
-    await user.click(screen.getByRole('button', { name: /como jogar/i }));
-    await user.click(document.querySelector('.guide-backdrop'));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 

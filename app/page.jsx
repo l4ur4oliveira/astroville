@@ -69,7 +69,7 @@ export default function Home() {
           <h1 id="home-title">Astro<span>Ville</span></h1>
           <p className="home-subtitle">O destino da Terra está nas estrelas.</p>
           <p className="home-description">Você é o arquiteto cósmico. A cada era da evolução planetária, combine dois signos<br className="desktop-break" /> do zodíaco para guiar o destino da humanidade entre prosperidade, caos ou harmonia cósmica.</p>
-          <div className="planet-scene" aria-label="Planeta Terra em uma órbita cósmica">
+          <div className="planet-scene" role="group" aria-label="Visualização da Terra em uma órbita cósmica">
             <span className="planet-tag atmosphere"><i aria-hidden="true" />Atmosfera: 100%</span>
             <div className="planet-orbit orbit-one" /><div className="planet-orbit orbit-two" />
             <div className="hero-planet" role="img" aria-label="Planeta Terra azul e verde"><span className="planet-ring" /><span className="land land-one" /><span className="land land-two" /><span className="land land-three" /></div>

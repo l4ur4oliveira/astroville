@@ -100,7 +100,14 @@ describe('AstroVille game flow', () => {
 
     await user.click(screen.getByRole('button', { name: /como jogar/i }));
     expect(screen.getByRole('dialog', { name: /como jogar astroville/i })).toBeInTheDocument();
-    expect(screen.getByText(/observe a era planetária/i)).toBeInTheDocument();
+    for (const step of [
+      'Observe a Era Planetária',
+      'Escolha 2 Signos do Zodíaco',
+      'Confirme e Testemunhe a Sinergia',
+      'Alcance o Horizonte Estelar',
+    ]) {
+      expect(screen.getByRole('heading', { name: step })).toBeInTheDocument();
+    }
     await user.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 

@@ -54,6 +54,10 @@ test('home screen guide can be read and dismissed before starting a journey', as
   const guide = page.getByRole('dialog', { name: 'Como Jogar AstroVille' });
   await expect(guide).toBeVisible();
   await expect(guide.getByRole('listitem')).toHaveCount(4);
+  await expect(guide.getByRole('heading', { name: 'Observe a Era Planetária' })).toBeVisible();
+  await expect(guide.getByRole('heading', { name: 'Escolha 2 Signos do Zodíaco' })).toBeVisible();
+  await expect(guide.getByRole('heading', { name: 'Confirme e Testemunhe a Sinergia' })).toBeVisible();
+  await expect(guide.getByRole('heading', { name: 'Alcance o Horizonte Estelar' })).toBeVisible();
   await expect(guide.getByText(/sobreviva às 6 eras/i)).toBeVisible();
 
   await page.keyboard.press('Escape');

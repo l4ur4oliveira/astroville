@@ -100,7 +100,11 @@ describe('AstroVille game flow', () => {
 
     expect(screen.getByRole('group', { name: 'Visualização da Terra em uma órbita cósmica' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: 'Planeta Terra azul e verde' })).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: /como jogar/i }));
+    await user.tab();
+    expect(screen.getByRole('button', { name: /começar jornada/i })).toHaveFocus();
+    await user.tab();
+    expect(screen.getByRole('button', { name: /como jogar/i })).toHaveFocus();
+    await user.keyboard('{Enter}');
     expect(screen.getByRole('dialog', { name: /como jogar astroville/i })).toBeInTheDocument();
     for (const step of [
       'Observe a Era Planetária',

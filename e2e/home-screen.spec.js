@@ -45,7 +45,19 @@ for (const viewport of viewports) {
     }));
     expect(dimensions.document).toBeLessThanOrEqual(dimensions.viewport);
 
-    await page.getByRole('button', { name: /como jogar/i }).click();
+    await page.keyboard.press('Tab');
+    const start = page.getByRole('button', { name: /começar jornada/i });
+    await expect(start).toBeFocused();
+    const focusStyle = await start.evaluate((button) => ({
+      style: getComputedStyle(button).outlineStyle,
+      width: getComputedStyle(button).outlineWidth,
+    }));
+    expect(focusStyle).toEqual({ style: 'solid', width: '3px' });
+
+    await page.keyboard.press('Tab');
+    const help = page.getByRole('button', { name: /como jogar/i });
+    await expect(help).toBeFocused();
+    await page.keyboard.press('Enter');
     const guide = page.getByRole('dialog', { name: 'Como Jogar AstroVille' });
     await expect(guide).toBeVisible();
     await expect(guide.getByRole('listitem')).toHaveCount(4);

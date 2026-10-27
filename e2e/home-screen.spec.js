@@ -4,6 +4,7 @@ const viewports = [
   { name: 'desktop', width: 1440, height: 1000, stackedCards: false },
   { name: 'tablet', width: 768, height: 1024, stackedCards: false },
   { name: 'mobile', width: 390, height: 844, stackedCards: true },
+  { name: 'small mobile', width: 320, height: 640, stackedCards: true },
 ];
 
 for (const viewport of viewports) {
@@ -112,4 +113,10 @@ test('guide remains within a short mobile viewport and its actions can be reache
   const finish = guide.getByRole('button', { name: /entendido, iniciar/i });
   await finish.scrollIntoViewIfNeeded();
   await expect(finish).toBeInViewport();
+
+  const close = guide.getByRole('button', { name: /fechar como jogar/i });
+  await close.scrollIntoViewIfNeeded();
+  await expect(close).toBeInViewport();
+  await close.click();
+  await expect(guide).toBeHidden();
 });

@@ -31,3 +31,7 @@ _Evitar_: Game over, derrota final
 **Sessão de jogo**:
 O período contínuo em que o jogador participa de uma partida, desde seu início até o encerramento ou reinício.
 _Evitar_: Save, progresso persistido
+
+**Tela inicial**:
+A página de entrada da experiência AstroVille, apresentada antes do início de uma Jornada.
+_Evitar_: Fase inicial, primeira fase

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createJourney, PHASES, resolveChoice, restartJourney, ZODIAC_SIGNS } from './game.js';
 
 const resultCopy = {
@@ -14,7 +14,17 @@ export default function Home() {
   const [screen, setScreen] = useState('home');
   const [selected, setSelected] = useState([]);
   const [outcome, setOutcome] = useState(null);
+  const [guideOpen, setGuideOpen] = useState(false);
   const phase = PHASES[journey.phaseIndex];
+
+  useEffect(() => {
+    if (!guideOpen) return undefined;
+    function closeOnEscape(event) {
+      if (event.key === 'Escape') setGuideOpen(false);
+    }
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [guideOpen]);
 
   function startJourney() {
     setJourney(createJourney());
@@ -50,18 +60,49 @@ export default function Home() {
   }
 
   return (
-      <main className="universe min-h-screen flex items-center justify-center">
+    <>
+      <main className={`universe min-h-screen flex items-center justify-center${screen === 'home' ? ' is-home' : ''}`}>
       <div className="nebula nebula-one" aria-hidden="true" /><div className="nebula nebula-two" aria-hidden="true" />
       {screen === 'home' && <section className="home-screen" aria-labelledby="home-title">
-        <div className="stars" aria-hidden="true">✦ <span>·</span> ✧</div>
-        <p className="eyebrow">UMA JORNADA CÓSMICA</p>
-        <h1 id="home-title">Astro<span>Ville</span></h1>
-        <p className="home-subtitle">O destino da humanidade<br />está nas estrelas.</p>
-        <div className="planet" role="img" aria-label="Planeta Terra brilhando no espaço"><span>✦</span></div>
-        <p className="planet-label">TERRA · ANO ZERO</p>
-        <button className="primary-button home-cta" onClick={startJourney}>COMEÇAR JORNADA <span aria-hidden="true">→</span></button>
-        <p className="home-note">Seis fases. Dois signos. Um destino.</p>
-        <div className="home-sparkles" aria-hidden="true">·　✦　　·　✧　·</div>
+        <div className="home-hero">
+          <p className="launch-badge"><span aria-hidden="true">✦</span> NOVO JOGO CÓSMICO • VERSÃO 1.0 <i aria-hidden="true" /></p>
+          <h1 id="home-title">Astro<span>Ville</span></h1>
+          <p className="home-subtitle">O destino da Terra está nas estrelas.</p>
+          <p className="home-description">Você é o arquiteto cósmico. A cada era da evolução planetária, combine dois signos<br className="desktop-break" /> do zodíaco para guiar o destino da humanidade entre prosperidade, caos ou harmonia cósmica.</p>
+          <div className="planet-scene" aria-label="Planeta Terra em uma órbita cósmica">
+            <span className="planet-tag atmosphere"><i aria-hidden="true" />Atmosfera: 100%</span>
+            <div className="planet-orbit orbit-one" /><div className="planet-orbit orbit-two" />
+            <div className="hero-planet" role="img" aria-label="Planeta Terra azul e verde"><span className="planet-ring" /><span className="land land-one" /><span className="land land-two" /><span className="land land-three" /></div>
+            <span className="planet-tag synergy"><b aria-hidden="true">✦</b> Sinergia Elemental</span>
+          </div>
+          <div className="home-actions">
+            <button className="primary-button home-cta" onClick={startJourney}>COMEÇAR JORNADA <span aria-hidden="true">✦</span></button>
+            <button className="secondary-button" onClick={() => setGuideOpen(true)}><span aria-hidden="true">▱</span> Como Jogar</button>
+          </div>
+          <p className="home-note"><span aria-hidden="true">◷</span> Partida rápida: ~3 minutos • 6 Eras Planetárias</p>
+        </div>
+
+        <div className="feature-grid" aria-label="Sobre AstroVille">
+          <article className="feature-card epochs-card">
+            <div className="feature-card-top"><span className="feature-icon" aria-hidden="true">◷</span><span className="feature-tag">Épocas</span></div>
+            <h2>6 Eras de Evolução</h2>
+            <p>Da sopa primordial à era biomecânica e o horizonte estelar. Molde cada transição biológica e cultural com escolhas decisivas.</p>
+            <div className="feature-meta"><strong>Ciclo I → Ciclo VI</strong><span>•</span> Transição Contínua</div>
+          </article>
+          <article className="feature-card synergy-card">
+            <div className="feature-card-top"><span className="feature-icon" aria-hidden="true">✦</span><span className="feature-tag">Sinergias</span></div>
+            <h2>12 Forças Zodiacais</h2>
+            <p>Fogo, Terra, Ar e Água. Combine pares astrológicos em cada turno para destravar ressonâncias lendárias ou mutações.</p>
+            <div className="feature-meta"><strong>66 Combinações</strong><span>•</span> Gemas Ocultas</div>
+          </article>
+          <article className="feature-card verdict-card">
+            <div className="feature-card-top"><span className="feature-icon" aria-hidden="true">⠿</span><span className="feature-tag">Vereditos</span></div>
+            <h2>3 Destinos Planetários</h2>
+            <p>Prosperidade Estelar de ordem harmônica, Cataclismo Primordial ou Simbiose Instável. Cada caminho gera uma crônica exclusiva.</p>
+            <div className="feature-meta"><strong>Alta Rejogabilidade</strong><span>•</span> Codex Registro</div>
+          </article>
+        </div>
+        <footer className="home-footer"><span>AstroVille v1.0 • Simulador de Evolução Planetária</span><span>© 2024 AstroVille Studios. Todos os direitos reservados.</span></footer>
       </section>}
 
       {screen === 'intro' && <section className="intro-screen panel" aria-labelledby="intro-title">
@@ -127,7 +168,22 @@ export default function Home() {
         <div className="completed-stages" aria-label="Seis fases concluídas">{PHASES.map((item) => <span key={item.name} title={item.name}>✓</span>)}</div>
         <button className="primary-button" onClick={() => { setJourney(restartJourney(journey)); setOutcome(null); setSelected([]); setScreen('home'); }}>JOGAR NOVAMENTE <span aria-hidden="true">↻</span></button>
       </section>}
-      <footer className="site-footer">ASTROVILLE <span>·</span> A TERRA É SUA OBRA-PRIMA</footer>
-    </main>
+      {screen !== 'home' && <footer className="site-footer">ASTROVILLE <span>·</span> A TERRA É SUA OBRA-PRIMA</footer>}
+      </main>
+      {guideOpen && <div className="guide-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setGuideOpen(false); }}>
+        <section className="guide-modal" role="dialog" aria-modal="true" aria-labelledby="guide-title" aria-describedby="guide-subtitle">
+          <button className="guide-close" type="button" aria-label="Fechar Como Jogar" onClick={() => setGuideOpen(false)}>✕</button>
+          <h2 id="guide-title">Como Jogar AstroVille</h2>
+          <p id="guide-subtitle" className="guide-subtitle">Manual Breve do Arquiteto Cósmico</p>
+          <ol className="guide-steps">
+            <li><span>1</span><div><h3>Observe a Era Planetária</h3><p>A cada turno, o planeta entra em um momento crítico. Examine Bioma, Cultura e Harmonia.</p></div></li>
+            <li><span>2</span><div><h3>Escolha 2 Signos do Zodíaco</h3><p>Selecione o primeiro regente e combine com um segundo signo para guiar as forças astrológicas.</p></div></li>
+            <li><span>3</span><div><h3>Confirme e Testemunhe a Sinergia</h3><p>Descubra a fusão resultante: uma sinergia perfeita impulsiona a evolução; choque gera caos.</p></div></li>
+            <li><span>4</span><div><h3>Alcance o Horizonte Estelar</h3><p>Sobreviva às 6 Eras históricas com os indicadores vitais estáveis para consagrar a civilização.</p></div></li>
+          </ol>
+          <button className="primary-button guide-start" type="button" onClick={() => setGuideOpen(false)}>Entendido, Iniciar <span aria-hidden="true">→</span></button>
+        </section>
+      </div>}
+    </>
   );
 }

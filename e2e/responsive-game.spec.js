@@ -12,15 +12,14 @@ const laterPhasePairs = [
   ['Gêmeos', 'Libra'],
   ['Capricórnio', 'Aquário'],
 ];
-async function choosePair(page, pair, result) {
+async function choosePair(page, pair, result, expectedPhase) {
   for (const sign of pair) await page.getByRole('button', { name: new RegExp(sign, 'i') }).click();
   await page.getByRole('button', { name: /confirmar escolha/i }).click();
   await expect(page.getByRole('heading', { name: new RegExp(result, 'i') })).toBeVisible();
-  const resultPhase = await page.locator('.result-screen .eyebrow').textContent();
-  const phaseIndex = Number(resultPhase.match(/FASE (\d+)/)[1]);
+  await expect(page.locator('.result-screen .eyebrow')).toContainText(`FASE ${expectedPhase} ·`);
   const expectedAsset = result === 'colapso'
     ? '/planets/colapso.svg'
-    : `/planets/fase-${phaseIndex}-${result === 'sucesso' ? 'sucesso' : 'instavel'}.svg`;
+    : `/planets/fase-${expectedPhase}-${result === 'sucesso' ? 'sucesso' : 'instavel'}.svg`;
   const resultImage = page.locator('.result-icon');
   await expect(resultImage).toHaveAttribute('src', expectedAsset);
   await expect.poll(() => resultImage.evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
@@ -133,20 +132,20 @@ for (const viewport of viewports) {
     expect(gridBounds.width * gridBounds.height).toBeGreaterThan(headerBounds.width * headerBounds.height);
     expect(gridBounds.width * gridBounds.height).toBeGreaterThan(footerBounds.width * footerBounds.height);
 
-    await choosePair(page, ['Áries', 'Leão'], 'colapso');
+    await choosePair(page, ['Áries', 'Leão'], 'colapso', 1);
     await page.getByRole('button', { name: /tentar novamente/i }).click();
-    await choosePair(page, ['Touro', 'Capricórnio'], 'sucesso');
+    await choosePair(page, ['Touro', 'Capricórnio'], 'sucesso', 1);
     await page.getByRole('button', { name: /avançar/i }).click();
 
-    await choosePair(page, laterPhasePairs[0], 'instável');
+    await choosePair(page, laterPhasePairs[0], 'instável', 2);
     await page.getByRole('button', { name: /continuar/i }).click();
-    await choosePair(page, laterPhasePairs[1], 'sucesso');
+    await choosePair(page, laterPhasePairs[1], 'sucesso', 3);
     await page.getByRole('button', { name: /avançar/i }).click();
-    await choosePair(page, laterPhasePairs[2], 'sucesso');
+    await choosePair(page, laterPhasePairs[2], 'sucesso', 4);
     await page.getByRole('button', { name: /avançar/i }).click();
-    await choosePair(page, laterPhasePairs[3], 'sucesso');
+    await choosePair(page, laterPhasePairs[3], 'sucesso', 5);
     await page.getByRole('button', { name: /avançar/i }).click();
-    await choosePair(page, ['Sagitário', 'Aquário'], 'sucesso');
+    await choosePair(page, ['Sagitário', 'Aquário'], 'sucesso', 6);
     await page.getByRole('button', { name: /avançar/i }).click();
     await expect(page.getByRole('heading', { name: /humanidade prosperou/i })).toBeVisible();
     await expectTouchTarget(page.getByRole('button', { name: /jogar novamente/i }));
@@ -207,5 +206,5 @@ test('reduced-motion preference disables transitions without blocking play', asy
 
   const transitionDuration = await page.locator('.zodiac-card').first().evaluate((button) => getComputedStyle(button).transitionDuration);
   expect(transitionDuration).toBe('0s');
-  await choosePair(page, ['Touro', 'Capricórnio'], 'sucesso');
+  await choosePair(page, ['Touro', 'Capricórnio'], 'sucesso', 1);
 });

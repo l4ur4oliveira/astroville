@@ -172,11 +172,11 @@ describe('AstroVille game flow', () => {
     expect(screen.getByRole('heading', { name: /astro ville/i })).toBeInTheDocument();
   });
 
-  it('completes the journey when the sixth phase ends in partial success', () => {
+  it('completes a partial-success journey with the illustration for every evaluated phase', () => {
     render(<Home />);
     const pairs = [
-      ['Touro', 'Capricórnio'], ['Câncer', 'Peixes'], ['Virgem', 'Touro'],
-      ['Gêmeos', 'Libra'], ['Capricórnio', 'Aquário'], ['Sagitário', 'Leão'],
+      ['Virgem', 'Capricórnio'], ['Touro', 'Câncer'], ['Virgem', 'Câncer'],
+      ['Gêmeos', 'Aquário'], ['Capricórnio', 'Gêmeos'], ['Sagitário', 'Leão'],
     ];
     fireEvent.click(screen.getByRole('button', { name: /começar jornada/i }));
     fireEvent.click(screen.getByRole('button', { name: /escolher signos/i }));
@@ -185,10 +185,8 @@ describe('AstroVille game flow', () => {
       for (const sign of pairs[index]) fireEvent.click(screen.getByRole('button', { name: new RegExp(sign, 'i') }));
       fireEvent.click(screen.getByRole('button', { name: /confirmar escolha/i }));
       const outcome = screen.getByRole('region', { name: /resultado da fase/i });
-      if (index === pairs.length - 1) {
-        expect(within(outcome).getByRole('heading', { name: /instável/i })).toBeInTheDocument();
-        expect(outcome.querySelector('img')).toHaveAttribute('src', '/planets/fase-6-instavel.svg');
-      }
+      expect(within(outcome).getByRole('heading', { name: /instável/i })).toBeInTheDocument();
+      expect(outcome.querySelector('img')).toHaveAttribute('src', `/planets/fase-${index + 1}-instavel.svg`);
       fireEvent.click(within(outcome).getByRole('button', { name: /avançar|continuar/i }));
     }
 

@@ -12,14 +12,11 @@ const laterPhasePairs = [
   ['Gêmeos', 'Libra'],
   ['Capricórnio', 'Aquário'],
 ];
-async function choosePair(page, pair, result, expectedPhase) {
+async function choosePair(page, pair, result, expectedPhase, expectedAsset) {
   for (const sign of pair) await page.getByRole('button', { name: new RegExp(sign, 'i') }).click();
   await page.getByRole('button', { name: /confirmar escolha/i }).click();
   await expect(page.getByRole('heading', { name: new RegExp(result, 'i') })).toBeVisible();
   await expect(page.locator('.result-screen .eyebrow')).toContainText(`FASE ${expectedPhase} ·`);
-  const expectedAsset = result === 'colapso'
-    ? '/planets/colapso.svg'
-    : `/planets/fase-${expectedPhase}-${result === 'sucesso' ? 'sucesso' : 'instavel'}.svg`;
   const resultImage = page.locator('.result-icon');
   await expect(resultImage).toHaveAttribute('src', expectedAsset);
   await expect(resultImage).toBeVisible();
@@ -143,20 +140,20 @@ for (const viewport of viewports) {
     expect(gridBounds.width * gridBounds.height).toBeGreaterThan(headerBounds.width * headerBounds.height);
     expect(gridBounds.width * gridBounds.height).toBeGreaterThan(footerBounds.width * footerBounds.height);
 
-    await choosePair(page, ['Áries', 'Leão'], 'colapso', 1);
+    await choosePair(page, ['Áries', 'Leão'], 'colapso', 1, '/planets/colapso.svg');
     await page.getByRole('button', { name: /tentar novamente/i }).click();
-    await choosePair(page, ['Touro', 'Capricórnio'], 'sucesso', 1);
+    await choosePair(page, ['Touro', 'Capricórnio'], 'sucesso', 1, '/planets/fase-1-sucesso.svg');
     await page.getByRole('button', { name: /avançar/i }).click();
 
-    await choosePair(page, laterPhasePairs[0], 'instável', 2);
+    await choosePair(page, laterPhasePairs[0], 'instável', 2, '/planets/fase-2-instavel.svg');
     await page.getByRole('button', { name: /continuar/i }).click();
-    await choosePair(page, laterPhasePairs[1], 'sucesso', 3);
+    await choosePair(page, laterPhasePairs[1], 'sucesso', 3, '/planets/fase-3-sucesso.svg');
     await page.getByRole('button', { name: /avançar/i }).click();
-    await choosePair(page, laterPhasePairs[2], 'sucesso', 4);
+    await choosePair(page, laterPhasePairs[2], 'sucesso', 4, '/planets/fase-4-sucesso.svg');
     await page.getByRole('button', { name: /avançar/i }).click();
-    await choosePair(page, laterPhasePairs[3], 'sucesso', 5);
+    await choosePair(page, laterPhasePairs[3], 'sucesso', 5, '/planets/fase-5-sucesso.svg');
     await page.getByRole('button', { name: /avançar/i }).click();
-    await choosePair(page, ['Sagitário', 'Aquário'], 'sucesso', 6);
+    await choosePair(page, ['Sagitário', 'Aquário'], 'sucesso', 6, '/planets/fase-6-sucesso.svg');
     await page.getByRole('button', { name: /avançar/i }).click();
     await expect(page.getByRole('heading', { name: /humanidade prosperou/i })).toBeVisible();
     await expectTouchTarget(page.getByRole('button', { name: /jogar novamente/i }));
@@ -211,19 +208,19 @@ test('keyboard-only play can choose, confirm, advance, collapse, and retry', asy
 
 test('browser loads each phase-specific partial-result illustration', async ({ page }) => {
   const partialPairs = [
-    ['Virgem', 'Capricórnio'],
-    ['Touro', 'Câncer'],
-    ['Virgem', 'Câncer'],
-    ['Gêmeos', 'Aquário'],
-    ['Capricórnio', 'Gêmeos'],
-    ['Sagitário', 'Leão'],
+    { pair: ['Virgem', 'Capricórnio'], expectedAsset: '/planets/fase-1-instavel.svg' },
+    { pair: ['Touro', 'Câncer'], expectedAsset: '/planets/fase-2-instavel.svg' },
+    { pair: ['Virgem', 'Câncer'], expectedAsset: '/planets/fase-3-instavel.svg' },
+    { pair: ['Gêmeos', 'Aquário'], expectedAsset: '/planets/fase-4-instavel.svg' },
+    { pair: ['Capricórnio', 'Gêmeos'], expectedAsset: '/planets/fase-5-instavel.svg' },
+    { pair: ['Sagitário', 'Leão'], expectedAsset: '/planets/fase-6-instavel.svg' },
   ];
   await page.goto('/');
   await page.getByRole('button', { name: /começar jornada/i }).click();
   await page.getByRole('button', { name: /escolher signos/i }).click();
 
   for (let index = 0; index < partialPairs.length; index += 1) {
-    await choosePair(page, partialPairs[index], 'instável', index + 1);
+    await choosePair(page, partialPairs[index].pair, 'instável', index + 1, partialPairs[index].expectedAsset);
     await expect.poll(() => page.locator('.result-icon').evaluate((image) => image.complete && image.naturalWidth > 0)).toBe(true);
     await page.getByRole('button', { name: /continuar/i }).click();
   }
@@ -237,5 +234,5 @@ test('reduced-motion preference disables transitions without blocking play', asy
 
   const transitionDuration = await page.locator('.zodiac-card').first().evaluate((button) => getComputedStyle(button).transitionDuration);
   expect(transitionDuration).toBe('0s');
-  await choosePair(page, ['Touro', 'Capricórnio'], 'sucesso', 1);
+  await choosePair(page, ['Touro', 'Capricórnio'], 'sucesso', 1, '/planets/fase-1-sucesso.svg');
 });

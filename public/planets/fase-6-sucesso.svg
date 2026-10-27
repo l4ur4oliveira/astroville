@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" fill="none">
+  <defs>
+    <radialGradient cx="50%" cy="50%" id="p6-core" r="50%">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="45%" stop-color="#7C3AED"/>
+      <stop offset="85%" stop-color="#2E1065"/>
+      <stop offset="100%" stop-color="#090B1A"/>
+    </radialGradient>
+    <linearGradient id="p6-ring1" x1="0" x2="200" y1="0" y2="200">
+      <stop offset="0%" stop-color="#F6C85F"/>
+      <stop offset="50%" stop-color="#C084FC"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" opacity="0.6" r="94" stroke="#F6C85F" stroke-dasharray="3 3" stroke-width="1"/>
+  <circle cx="100" cy="100" fill="url(#p6-core)" r="76" stroke="#C084FC" stroke-width="2"/>
+  <ellipse cx="100" cy="100" rx="88" ry="32" stroke="url(#p6-ring1)" stroke-width="2" transform="rotate(-30 100 100)"/>
+  <ellipse cx="100" cy="100" opacity="0.8" rx="84" ry="24" stroke="#6EE7B7" stroke-dasharray="4 3" stroke-width="1.2" transform="rotate(45 100 100)"/>
+  <path d="M100 72L103 88L118 92L106 101L109 116L97 106L83 113L89 98L78 88L94 87L100 72Z" fill="#F6C85F"/>
+  <circle cx="160" cy="50" fill="#F6C85F" r="4.5"/>
+  <circle cx="40" cy="150" fill="#C084FC" r="4"/>
+  <circle cx="150" cy="150" fill="#6EE7B7" r="3.5"/>
+  <circle cx="45" cy="55" fill="#38BDF8" r="3"/>
+</svg>

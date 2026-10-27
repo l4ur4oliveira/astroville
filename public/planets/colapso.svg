@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" fill="none">
+  <defs>
+    <radialGradient cx="50%" cy="50%" id="collapse-void" r="50%">
+      <stop offset="0%" stop-color="#090B1A"/>
+      <stop offset="70%" stop-color="#1F131D"/>
+      <stop offset="100%" stop-color="#3B0713"/>
+    </radialGradient>
+    <radialGradient cx="50%" cy="50%" id="collapse-core-flame" r="50%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="40%" stop-color="#FB7185"/>
+      <stop offset="85%" stop-color="#9F1239"/>
+      <stop offset="100%" stop-color="#090B1A"/>
+    </radialGradient>
+    <linearGradient id="crust-broken-1" x1="20" x2="110" y1="20" y2="110">
+      <stop offset="0%" stop-color="#3F3F46"/>
+      <stop offset="70%" stop-color="#18181B"/>
+      <stop offset="100%" stop-color="#090B1A"/>
+    </linearGradient>
+    <linearGradient id="crust-broken-2" x1="120" x2="220" y1="120" y2="220">
+      <stop offset="0%" stop-color="#4C1D24"/>
+      <stop offset="60%" stop-color="#271016"/>
+      <stop offset="100%" stop-color="#090B1A"/>
+    </linearGradient>
+  </defs>
+  <!-- Shattered shockwave boundary -->
+  <circle cx="120" cy="120" r="110" stroke="#FB7185" stroke-dasharray="6 6" stroke-opacity="0.3" stroke-width="1.5"/>
+  <!-- Exposed Magma Core through Central Rupture -->
+  <circle cx="120" cy="120" fill="url(#collapse-void)" r="88" stroke="#FB7185" stroke-opacity="0.8" stroke-width="1.8"/>
+  <ellipse cx="120" cy="120" fill="url(#collapse-core-flame)" opacity="0.9" rx="35" ry="35"/>
+  <!-- Tectonic Fragment 1: Western Hemisphere Drifting Away -->
+  <path d="M48 76C56 50 82 38 112 36C108 52 114 68 104 84C94 100 86 112 78 126C65 142 56 160 52 178C38 152 38 108 48 76Z" fill="url(#crust-broken-1)" stroke="#FB7185" stroke-width="1.5"/>
+  <!-- Tectonic Fragment 2: Northern Polar Shard -->
+  <path d="M120 34C145 35 174 48 190 70C176 74 162 82 152 94C140 82 135 60 120 34Z" fill="#27272A" stroke="#F43F5E" stroke-width="1.2"/>
+  <!-- Tectonic Fragment 3: Eastern Continental Chunk (Drifting right) -->
+  <path d="M165 98C176 86 190 80 200 90C206 112 206 138 198 160C188 174 172 188 150 196C152 178 162 165 158 148C154 132 158 114 165 98Z" fill="url(#crust-broken-2)" stroke="#FB7185" stroke-width="1.5"/>
+  <!-- Tectonic Fragment 4: Southern Remnant -->
+  <path d="M68 188C80 200 102 208 128 206C140 204 142 194 135 186C122 178 114 162 98 165C84 168 76 178 68 188Z" fill="#1C1917" stroke="#F43F5E" stroke-width="1.2"/>
+  <!-- Deep Jagged Fracture Lightning Lines (#FB7185 and Magma Embers) -->
+  <path d="M112 36L104 84L124 116L98 165L135 186" stroke="#FB7185" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  <path d="M104 84L152 94L158 148" stroke="#FDE047" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"/>
+  <path d="M124 116L165 98" stroke="#FB7185" stroke-linecap="round" stroke-width="2"/>
+  <path d="M78 126L52 178" stroke="#F43F5E" stroke-linecap="round" stroke-width="2"/>
+  <!-- Floating Planetary Debris & Drifting Chunks in Orbit -->
+  <polygon fill="#52525B" points="212,68 222,76 216,84 208,78" stroke="#FB7185" stroke-width="1"/>
+  <polygon fill="#3F3F46" points="28,52 36,60 30,68 22,62" stroke="#FB7185" stroke-width="1"/>
+  <polygon fill="#27272A" points="184,212 194,218 186,226 178,220" stroke="#F43F5E" stroke-width="1"/>
+  <polygon fill="#52525B" points="38,198 48,204 42,212 34,206" stroke="#FB7185" stroke-width="1"/>
+  <!-- Molten Spark Particles Dispersing into Space -->
+  <circle cx="118" cy="118" fill="#FDE047" r="4.5"/>
+  <circle cx="106" cy="82" fill="#FB7185" r="3.5"/>
+  <circle cx="140" cy="102" fill="#F97316" r="3"/>
+  <circle cx="155" cy="142" fill="#FB7185" r="3"/>
+  <circle cx="92" cy="158" fill="#FDE047" r="3.5"/>
+  <circle cx="218" cy="115" fill="#FB7185" r="2.5"/>
+  <circle cx="20" cy="130" fill="#F43F5E" r="2"/>
+  <circle cx="130" cy="18" fill="#FDE047" r="2.5"/>
+  <circle cx="100" cy="226" fill="#FB7185" r="2.5"/>
+</svg>

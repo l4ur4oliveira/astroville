@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" fill="none">
+  <defs>
+    <radialGradient cx="50%" cy="50%" id="wp1-core" r="50%">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="60%" stop-color="#991B1B"/>
+      <stop offset="90%" stop-color="#450A0A"/>
+      <stop offset="100%" stop-color="#180505"/>
+    </radialGradient>
+    <linearGradient id="wp1-eruption" x1="0" x2="200" y1="0" y2="200">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="50%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#7F1D1D"/>
+    </linearGradient>
+  </defs>
+  <!-- Unstable magnetic distortion -->
+  <ellipse cx="100" cy="100" rx="94" ry="86" stroke="#EF4444" stroke-dasharray="6 3" stroke-opacity="0.45" stroke-width="1.5" transform="rotate(-15 100 100)"/>
+  <circle cx="100" cy="100" fill="url(#wp1-core)" r="76" stroke="#EF4444" stroke-width="2"/>
+  <!-- Caustic ash plume & fissures -->
+  <path d="M38 95C48 65 72 70 85 85C95 95 110 75 130 80C155 86 168 108 152 130C138 148 112 135 94 150C76 162 48 140 42 120C38 108 30 105 38 95Z" fill="url(#wp1-eruption)" opacity="0.9"/>
+  <path d="M80 50L90 70M115 45L110 68M145 60L135 80" stroke="#FBBF24" stroke-linecap="round" stroke-width="2"/>
+  <!-- Toxic ash cloud bands -->
+  <path d="M34 110C60 90 120 120 166 98" opacity="0.6" stroke="#78716C" stroke-linecap="round" stroke-width="6"/>
+  <path d="M45 135C75 125 125 145 155 130" opacity="0.5" stroke="#57534E" stroke-linecap="round" stroke-width="4"/>
+  <!-- Volcanic ejection sparks -->
+  <circle cx="90" cy="46" fill="#FBBF24" r="3.5"/>
+  <circle cx="148" cy="56" fill="#EF4444" r="3"/>
+  <circle cx="170" cy="120" fill="#F97316" r="2.5"/>
+  <circle cx="30" cy="80" fill="#FBBF24" r="2"/>
+</svg>

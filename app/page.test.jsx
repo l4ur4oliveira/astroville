@@ -24,6 +24,9 @@ describe('AstroVille game flow', () => {
     fireEvent.click(confirm);
 
     expect(screen.getByRole('heading', { name: /sucesso/i })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: /resultado da fase/i }).querySelector('img')).toHaveAttribute('src', '/planets/fase-1-sucesso.svg');
+    expect(screen.getByText('FASE 1 · Sopa Primordial')).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: /resultado da fase/i }).querySelector('img')).toHaveAttribute('alt', '');
     expect(screen.getByRole('button', { name: /avançar/i })).toBeInTheDocument();
   });
 
@@ -36,9 +39,28 @@ describe('AstroVille game flow', () => {
     fireEvent.click(screen.getByRole('button', { name: /confirmar escolha/i }));
 
     expect(screen.getByRole('heading', { name: /colapso/i })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: /resultado da fase/i }).querySelector('img')).toHaveAttribute('src', '/planets/colapso.svg');
     fireEvent.click(screen.getByRole('button', { name: /tentar novamente/i }));
     expect(screen.getByRole('heading', { name: /sopa primordial/i })).toBeInTheDocument();
     expect(screen.getByText('FASE 1 / 6')).toBeInTheDocument();
+  });
+
+  it('uses the shared collapse illustration after a later phase fails', () => {
+    render(<Home />);
+    fireEvent.click(screen.getByRole('button', { name: /começar jornada/i }));
+    fireEvent.click(screen.getByRole('button', { name: /escolher signos/i }));
+    fireEvent.click(screen.getByRole('button', { name: /touro/i }));
+    fireEvent.click(screen.getByRole('button', { name: /capricórnio/i }));
+    fireEvent.click(screen.getByRole('button', { name: /confirmar escolha/i }));
+    fireEvent.click(screen.getByRole('button', { name: /avançar/i }));
+    fireEvent.click(screen.getByRole('button', { name: /câncer/i }));
+    fireEvent.click(screen.getByRole('button', { name: /áries/i }));
+    fireEvent.click(screen.getByRole('button', { name: /confirmar escolha/i }));
+
+    const result = screen.getByRole('region', { name: /resultado da fase/i });
+    expect(within(result).getByRole('heading', { name: /colapso/i })).toBeInTheDocument();
+    expect(result.querySelector('img')).toHaveAttribute('src', '/planets/colapso.svg');
+    expect(screen.getByText('FASE 2 · Nascimento dos Oceanos')).toBeInTheDocument();
   });
 
   it('allows a partial pair to advance to the next phase', () => {
@@ -50,6 +72,7 @@ describe('AstroVille game flow', () => {
     fireEvent.click(screen.getByRole('button', { name: /confirmar escolha/i }));
 
     expect(screen.getByRole('heading', { name: /instável/i })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: /resultado da fase/i }).querySelector('img')).toHaveAttribute('src', '/planets/fase-1-instavel.svg');
     fireEvent.click(screen.getByRole('button', { name: /continuar/i }));
     expect(screen.getByRole('heading', { name: /nascimento dos oceanos/i })).toBeInTheDocument();
     expect(screen.getByText('FASE 2 / 6')).toBeInTheDocument();
@@ -139,6 +162,7 @@ describe('AstroVille game flow', () => {
       for (const sign of pairs[index]) fireEvent.click(screen.getByRole('button', { name: new RegExp(sign, 'i') }));
       fireEvent.click(screen.getByRole('button', { name: /confirmar escolha/i }));
       const outcome = screen.getByRole('region', { name: /resultado da fase/i });
+      expect(outcome.querySelector('img')).toHaveAttribute('src', `/planets/fase-${index + 1}-sucesso.svg`);
       const advance = within(outcome).getByRole('button', { name: /avançar|continuar/i });
       fireEvent.click(advance);
     }
@@ -163,6 +187,7 @@ describe('AstroVille game flow', () => {
       const outcome = screen.getByRole('region', { name: /resultado da fase/i });
       if (index === pairs.length - 1) {
         expect(within(outcome).getByRole('heading', { name: /instável/i })).toBeInTheDocument();
+        expect(outcome.querySelector('img')).toHaveAttribute('src', '/planets/fase-6-instavel.svg');
       }
       fireEvent.click(within(outcome).getByRole('button', { name: /avançar|continuar/i }));
     }

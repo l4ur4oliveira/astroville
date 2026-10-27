@@ -12,13 +12,18 @@ const laterPhasePairs = [
   ['Gêmeos', 'Libra'],
   ['Capricórnio', 'Aquário'],
 ];
-const resultIndicators = { sucesso: '✓', instável: '≈', colapso: '×' };
-
 async function choosePair(page, pair, result) {
   for (const sign of pair) await page.getByRole('button', { name: new RegExp(sign, 'i') }).click();
   await page.getByRole('button', { name: /confirmar escolha/i }).click();
   await expect(page.getByRole('heading', { name: new RegExp(result, 'i') })).toBeVisible();
-  await expect(page.locator('.result-icon')).toHaveText(resultIndicators[result]);
+  const resultPhase = await page.locator('.result-screen .eyebrow').textContent();
+  const phaseIndex = Number(resultPhase.match(/FASE (\d+)/)[1]);
+  const expectedAsset = result === 'colapso'
+    ? '/planets/colapso.svg'
+    : `/planets/fase-${phaseIndex}-${result === 'sucesso' ? 'sucesso' : 'instavel'}.svg`;
+  const resultImage = page.locator('.result-icon');
+  await expect(resultImage).toHaveAttribute('src', expectedAsset);
+  await expect.poll(() => resultImage.evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
   await expectFullyVisibleAfterScroll(page, page.locator('.result-screen'));
   await expectNoHorizontalOverflow(page);
   await expectTouchTarget(page.locator('.result-screen button'));

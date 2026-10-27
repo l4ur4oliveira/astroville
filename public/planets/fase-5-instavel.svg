@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" fill="none">
+  <defs>
+    <radialGradient cx="45%" cy="40%" id="wp5-core" r="55%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="70%" stop-color="#0A0F1D"/>
+      <stop offset="100%" stop-color="#02040A"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" stroke="#F59E0B" stroke-dasharray="10 2 2 2" stroke-opacity="0.4" stroke-width="1.5"/>
+  <circle cx="100" cy="100" fill="url(#wp5-core)" r="76" stroke="#F59E0B" stroke-width="2"/>
+  <!-- Distorted and broken cyber polygons -->
+  <polygon fill="#EF4444" fill-opacity="0.1" points="98,42 138,58 130,88 95,95 62,80 68,52" stroke="#EF4444" stroke-dasharray="4 2" stroke-width="1.5"/>
+  <polygon fill="#FBBF24" fill-opacity="0.05" points="135,92 168,110 160,135 135,140 115,122 118,102" stroke="#FBBF24" stroke-dasharray="2 2" stroke-width="1.2"/>
+  <!-- Disconnected bus lines -->
+  <path d="M100 24V38M96 102V125M100 135V176M24 100H55M145 100H176" stroke="#FBBF24" stroke-width="1.5"/>
+  <circle cx="96" cy="102" fill="#EF4444" r="5"/>
+  <circle cx="100" cy="135" fill="#FBBF24" r="4"/>
+  <!-- Glitched broken techno-ring -->
+  <path d="M28 85C45 60 155 70 172 115" stroke="#F97316" stroke-dasharray="6 4" stroke-width="1.8"/>
+  <path d="M35 125C50 145 145 140 165 125" stroke="#EF4444" stroke-dasharray="2 3" stroke-width="1.5"/>
+  <rect fill="#EF4444" height="6" transform="rotate(25 158 112)" width="7" x="158" y="112"/>
+  <rect fill="#FBBF24" height="5" transform="rotate(-15 35 75)" width="6" x="35" y="75"/>
+</svg>

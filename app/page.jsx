@@ -9,6 +9,12 @@ const resultCopy = {
   collapse: { title: 'COLAPSO', message: 'A combinação entrou em conflito.', detail: 'O mundo não prosperou. O cosmos oferece outra chance.', action: 'TENTAR NOVAMENTE' },
 };
 
+const resultIllustrations = {
+  success: (phaseNumber) => `/planets/fase-${phaseNumber}-sucesso.svg`,
+  partial: (phaseNumber) => `/planets/fase-${phaseNumber}-instavel.svg`,
+  collapse: () => '/planets/colapso.svg',
+};
+
 export default function Home() {
   const [journey, setJourney] = useState(createJourney);
   const [screen, setScreen] = useState('home');
@@ -152,7 +158,7 @@ export default function Home() {
       </section>}
 
       {screen === 'result' && outcome && <section className={`result-screen panel result-${outcome}`} role="region" aria-label="Resultado da fase" aria-live="polite">
-        <img className="result-icon" src={outcome === 'collapse' ? '/planets/colapso.svg' : `/planets/fase-${resultPhaseIndex + 1}-${outcome === 'success' ? 'sucesso' : 'instavel'}.svg`} alt="" aria-hidden="true" />
+        <img className="result-icon" src={resultIllustrations[outcome](resultPhaseIndex + 1)} alt="" aria-hidden="true" />
         <p className="eyebrow">FASE {resultPhaseIndex + 1} · {PHASES[resultPhaseIndex].name}</p>
         <h2>{resultCopy[outcome].title}</h2>
         <div className="result-pair">{selected.map((sign, index) => <span key={sign}>{index > 0 && <b>+</b>}{ZODIAC_SIGNS.find((item) => item.name === sign)?.symbol} <small>{sign}</small></span>)}</div>

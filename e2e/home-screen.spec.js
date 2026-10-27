@@ -16,7 +16,7 @@ for (const viewport of viewports) {
     await expect(page.getByText('O destino da Terra está nas estrelas.')).toBeVisible();
     await expect(page.getByRole('button', { name: /começar jornada/i })).toBeVisible();
     await expect(page.getByRole('button', { name: /como jogar/i })).toBeVisible();
-    await expect(page.getByRole('group', { name: 'Visualização da Terra em uma órbita cósmica' })).toBeVisible();
+    await expect(page.getByRole('group', { name: 'Terra em uma órbita cósmica: atmosfera 100%, sinergia elemental' })).toBeVisible();
     await expect(page.getByRole('img', { name: 'Planeta Terra azul e verde' })).toBeVisible();
     await expect(page.getByRole('navigation')).toHaveCount(0);
 

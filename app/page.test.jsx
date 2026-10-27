@@ -98,7 +98,7 @@ describe('AstroVille game flow', () => {
     const user = userEvent.setup();
     render(<Home />);
 
-    expect(screen.getByRole('group', { name: 'Visualização da Terra em uma órbita cósmica' })).toBeInTheDocument();
+    expect(screen.getByRole('group', { name: 'Terra em uma órbita cósmica: atmosfera 100%, sinergia elemental' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: 'Planeta Terra azul e verde' })).toBeInTheDocument();
     await user.tab();
     expect(screen.getByRole('button', { name: /começar jornada/i })).toHaveFocus();

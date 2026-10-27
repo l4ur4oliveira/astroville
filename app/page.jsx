@@ -69,7 +69,7 @@ export default function Home() {
           <h1 id="home-title">Astro<span>Ville</span></h1>
           <p className="home-subtitle">O destino da Terra está nas estrelas.</p>
           <p className="home-description">Você é o arquiteto cósmico. A cada era da evolução planetária, combine dois signos<br className="desktop-break" /> do zodíaco para guiar o destino da humanidade entre prosperidade, caos ou harmonia cósmica.</p>
-          <div className="planet-scene" role="group" aria-label="Visualização da Terra em uma órbita cósmica">
+          <div className="planet-scene" role="group" aria-label="Terra em uma órbita cósmica: atmosfera 100%, sinergia elemental">
             <span className="planet-tag atmosphere"><i aria-hidden="true" />Atmosfera: 100%</span>
             <div className="planet-orbit orbit-one" /><div className="planet-orbit orbit-two" />
             <div className="hero-planet" role="img" aria-label="Planeta Terra azul e verde"><span className="planet-ring" /><span className="land land-one" /><span className="land land-two" /><span className="land land-three" /></div>
@@ -170,7 +170,7 @@ export default function Home() {
       </section>}
       {screen !== 'home' && <footer className="site-footer">ASTROVILLE <span>·</span> A TERRA É SUA OBRA-PRIMA</footer>}
       </main>
-      {guideOpen && <div className="guide-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setGuideOpen(false); }}>
+      {guideOpen && <div className="guide-backdrop" onClick={(event) => { if (event.target === event.currentTarget) setGuideOpen(false); }}>
         <section className="guide-modal" role="dialog" aria-modal="true" aria-labelledby="guide-title" aria-describedby="guide-subtitle">
           <button className="guide-close" type="button" aria-label="Fechar Como Jogar" onClick={() => setGuideOpen(false)}>✕</button>
           <h2 id="guide-title">Como Jogar AstroVille</h2>

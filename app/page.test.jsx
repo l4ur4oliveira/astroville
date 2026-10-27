@@ -24,9 +24,12 @@ describe('AstroVille game flow', () => {
     fireEvent.click(confirm);
 
     expect(screen.getByRole('heading', { name: /sucesso/i })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: /resultado da fase/i }).querySelector('img')).toHaveAttribute('src', '/planets/fase-1-sucesso.svg');
+    const result = screen.getByRole('region', { name: /resultado da fase/i });
+    expect(within(result).getByRole('heading', { name: /sucesso/i })).toBeInTheDocument();
+    expect(result.querySelector('img')).toHaveAttribute('src', '/planets/fase-1-sucesso.svg');
     expect(screen.getByText('FASE 1 · Sopa Primordial')).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: /resultado da fase/i }).querySelector('img')).toHaveAttribute('alt', '');
+    expect(result.querySelector('img')).toHaveAttribute('alt', '');
+    expect(result.querySelector('img')).toHaveAttribute('aria-hidden', 'true');
     expect(screen.getByRole('button', { name: /avançar/i })).toBeInTheDocument();
   });
 
@@ -43,6 +46,9 @@ describe('AstroVille game flow', () => {
     fireEvent.click(screen.getByRole('button', { name: /tentar novamente/i }));
     expect(screen.getByRole('heading', { name: /sopa primordial/i })).toBeInTheDocument();
     expect(screen.getByText('FASE 1 / 6')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /sopa primordial/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /touro/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /confirmar escolha/i })).toBeDisabled();
   });
 
   it('uses the shared collapse illustration after a later phase fails', () => {

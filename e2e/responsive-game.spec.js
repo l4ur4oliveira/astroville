@@ -22,10 +22,21 @@ async function choosePair(page, pair, result, expectedPhase) {
     : `/planets/fase-${expectedPhase}-${result === 'sucesso' ? 'sucesso' : 'instavel'}.svg`;
   const resultImage = page.locator('.result-icon');
   await expect(resultImage).toHaveAttribute('src', expectedAsset);
+  await expect(resultImage).toBeVisible();
   await expect.poll(() => resultImage.evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
-  await expectFullyVisibleAfterScroll(page, page.locator('.result-screen'));
+  const dimensions = await resultImage.evaluate((image) => ({
+    naturalWidth: image.naturalWidth,
+    naturalHeight: image.naturalHeight,
+    renderedWidth: image.getBoundingClientRect().width,
+    renderedHeight: image.getBoundingClientRect().height,
+  }));
+  expect(dimensions.renderedWidth / dimensions.renderedHeight).toBeCloseTo(dimensions.naturalWidth / dimensions.naturalHeight, 2);
+  const resultAction = page.locator('.result-screen button');
+  await expect(resultAction).toBeVisible();
+  await expectFullyVisibleAfterScroll(page, resultImage);
+  await expectFullyVisibleAfterScroll(page, resultAction);
   await expectNoHorizontalOverflow(page);
-  await expectTouchTarget(page.locator('.result-screen button'));
+  await expectTouchTarget(resultAction);
 }
 
 async function expectTouchTarget(button) {
@@ -196,6 +207,26 @@ test('keyboard-only play can choose, confirm, advance, collapse, and retry', asy
   await expect(page.getByRole('button', { name: /tentar novamente/i })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('heading', { name: /nascimento dos oceanos/i })).toBeVisible();
+});
+
+test('browser loads each phase-specific partial-result illustration', async ({ page }) => {
+  const partialPairs = [
+    ['Virgem', 'Capricórnio'],
+    ['Touro', 'Câncer'],
+    ['Virgem', 'Câncer'],
+    ['Gêmeos', 'Aquário'],
+    ['Capricórnio', 'Gêmeos'],
+    ['Sagitário', 'Leão'],
+  ];
+  await page.goto('/');
+  await page.getByRole('button', { name: /começar jornada/i }).click();
+  await page.getByRole('button', { name: /escolher signos/i }).click();
+
+  for (let index = 0; index < partialPairs.length; index += 1) {
+    await choosePair(page, partialPairs[index], 'instável', index + 1);
+    await expect.poll(() => page.locator('.result-icon').evaluate((image) => image.complete && image.naturalWidth > 0)).toBe(true);
+    await page.getByRole('button', { name: /continuar/i }).click();
+  }
 });
 
 test('reduced-motion preference disables transitions without blocking play', async ({ page }) => {

@@ -12,6 +12,10 @@ _Evitar_: Campanha, run
 Um estágio da evolução da Terra no qual o jogador escolhe um par de signos para determinar o resultado.
 _Evitar_: Nível, era (quando se refere à unidade jogável)
 
+**Era planetária**:
+Um período histórico da evolução da Terra que fornece contexto narrativo a uma Fase; não é, por si só, uma unidade jogável.
+_Evitar_: Fase, quando se refere ao período histórico
+
 **Par de signos**:
 Os dois signos escolhidos pelo jogador em uma fase; sua ordem não altera o resultado.
 _Evitar_: Combinação ordenada

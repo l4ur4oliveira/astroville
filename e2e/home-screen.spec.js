@@ -41,6 +41,9 @@ for (const viewport of viewports) {
       viewport: window.innerWidth,
     }));
     expect(dimensions.document).toBeLessThanOrEqual(dimensions.viewport);
+
+    await page.getByRole('button', { name: /começar jornada/i }).click();
+    await expect(page.getByRole('heading', { name: /sopa primordial/i })).toBeVisible();
   });
 }
 
